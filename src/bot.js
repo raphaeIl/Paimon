@@ -2,8 +2,6 @@ import 'dotenv/config.js'
 import { Configuration, OpenAIApi } from "openai";
 import { FileBox }  from 'file-box'
 import { generate_images, generate_image_novelai } from './image_converter.js'
-import fs from 'fs';
-import { ChatGPTAPIBrowser } from 'chatgpt'
 
 import {
  WechatyBuilder,
@@ -11,32 +9,9 @@ import {
  log,
 }                     from 'wechaty'
 import qrcodeTerminal from 'qrcode-terminal'
+import { resolution } from 'nai-studio';
 
 const AUTOMATIC_MESSAGE = "[自动回复]\n你好！很抱歉的告诉你，我目前处于待机模式，所以暂时帮助不了你哦！ 请稍后再试。\n\n[Automatic Message]\nHello there! I'm sorry to inform you that I am currently not running at the moment. Please try again later"
-export let OPENAI_API_KEY = null;
-export let IMGUR_CLIENT_ID = null;
-export let NOVEL_AI_AUTH_TOKEN = null;
-let OPENAI_EMAIL = null;
-let OPENAI_PASSWORD = null;
-
-function readConfigFile() {
-  return new Promise((resolve, reject) => {
-      fs.readFile('config.json', 'utf8', (err, data) => {
-          if (err) {
-              reject(err);
-          }
-          try {
-            const fileData = JSON.parse(data);
-            resolve(fileData)
-          } catch (e) {
-              reject(e);
-          }
-      });
-  })
-  .catch((err) => {
-      console.error(err);
-  });
-}
 
 function onScan (qrcode, status) {
  if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
@@ -63,34 +38,6 @@ function onLogout (user) {
 }
 
 var isDown = true;
-
-async function generateResponse(prompt) {
-  let response = "I'm sorry, I'm not able to answer that question.\n对不起，我无法回答这个问题。";
-  
-  // try {
-  const result = await api.sendMessage(prompt)
-  response = result.response.replace(/\n/g, '');
-  // } catch(error) {
-  //   console.log(error)
-  //   return;
-  // }
-
-  return response.toString();
-}
-
-async function generateImage(prompt) {
-  const configuration = new Configuration({
-    apiKey: OPENAI_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
-  const response = await openai.createImage({
-    prompt: prompt,
-    n: 1,
-    size: "1024x1024",
-  })
-  
-  return response.data.data[0].url
-}
 
 let alreadyResponding = false;
 
@@ -158,12 +105,13 @@ async function onMessage(msg) {
       prompt = prompt.replace("!novelai ", "")
       console.log(prompt)
 
+      let isLandscape = prompt.includes("-landscape");
       // await msg.say("Generating image.... Please wait (~10 seconds)")
-      let image_link = await generate_image_novelai(prompt)
+      let image_link = await generate_image_novelai(prompt, isLandscape ? resolution.normal.landscape : resolution.normal.portrait)
+      console.log(image_link)
       
       const fileBox = FileBox.fromUrl(image_link)
       
-      console.log(image_link)
     
       await msg.say(fileBox)
       alreadyResponding = false;
@@ -216,11 +164,15 @@ async function respondToMessage(msg, tagSender) {
     await msg.say(`@${msg.from().name()} ${response}`);
 }
 
+function main() {
+
+}
+
 const bot = WechatyBuilder.build({
   name: 'ding-dong-bot',
-  puppet: 'wechaty-puppet-padlocal',
+  puppet: 'wechaty-puppet-padlocal',  
 })
-let api = null;
+
 
 bot.on('scan',    onScan)
 bot.on('login',   onLogin)
@@ -228,27 +180,13 @@ bot.on('logout',  onLogout)
 bot.on('message', onMessage)
 
 bot.start()
- .then(() => {
-    readConfigFile().then((fileData) => {
-      OPENAI_API_KEY = fileData['OPENAI_API_KEY'];
-      IMGUR_CLIENT_ID = fileData['IMGUR_CLIENT_ID'];
-      NOVEL_AI_AUTH_TOKEN = fileData['NOVEL_AI_AUTH_TOKEN'];
-      OPENAI_EMAIL = fileData['OPENAI_EMAIL'];
-      OPENAI_PASSWORD = fileData['OPENAI_PASSWORD'];
-
-      console.log(OPENAI_API_KEY)
-      console.log(IMGUR_CLIENT_ID)
-      console.log(NOVEL_AI_AUTH_TOKEN)
-      console.log(OPENAI_EMAIL)
-      console.log(OPENAI_PASSWORD)
-
-      api = new ChatGPTAPIBrowser({
-        email: OPENAI_EMAIL,
-        password: OPENAI_PASSWORD
-      })
-
-      api.initSession()
-    })
- })
  .then(() => log.info('Paimon', 'Paimon Bot Started.'))
- .catch(e => log.error('Paimon', e))
+ .then(() => {
+  init()
+ })
+ .catch(e => log.error('Error', e))
+
+
+async function init() {
+  await Config.init();
+}

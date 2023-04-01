@@ -1,0 +1,9 @@
+{
+    "OPENAI_API_KEY": "your_openai_api_key",
+    "IMGUR_CLIENT_ID": "your_imgur_client_id",
+    "NOVEL_AI_AUTH_TOKEN": "your_novel_ai_auth_token",
+    "OPENAI_EMAIL": "your_openai_email",
+    "OPENAI_PASSWORD": "your_openai_password",
+    "NOVELAI_EMAIL": "your_novelai_email",
+    "NOVELAI_PASSWORD": "your_novelai_password"
+}

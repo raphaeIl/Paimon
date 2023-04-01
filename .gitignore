@@ -131,4 +131,5 @@ dist
 
 # Custom
 test.js
-config_template.json
+config.json
+

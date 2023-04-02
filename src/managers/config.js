@@ -8,7 +8,7 @@ export default class Config {
         return this.instance;
     }
 
-    configPath = "../res/config.json"
+    configPath = "./res/config.json"
     data = {}
 
     static async init() {

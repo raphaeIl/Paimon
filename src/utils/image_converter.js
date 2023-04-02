@@ -2,7 +2,7 @@ import fs from 'fs';
 import base64toFile from 'node-base64-to-file'
 import webp from 'webp-converter'
 import pkg from 'imgur';
-import Config from '../managers/config';
+import Config from '../managers/config.js';
 const { ImgurClient } = pkg;
 
 export async function base64_to_webp(base64_image) {
@@ -20,7 +20,7 @@ export async function webp_to_png(webp_path) {
 }
 
 export async function upload_png(png_path) {
-    const client = new ImgurClient({ clientId: Config.getInstance().data[IMGUR_CLIENT_ID] });
+    const client = new ImgurClient({ clientId: Config.getInstance().data['IMGUR_CLIENT_ID'] });
     const response = await client.upload({
       image: fs.createReadStream(png_path),
       type: 'stream',

@@ -26,13 +26,13 @@ export default class DalleMini {
           });
 
         let image = result.images[0]
-        let savePath = '../res/dallemini_image.png'
+        let savePath = 'C:/Users/micha/Documents/vsc/workspace/paimon/res/dallemini_image.png'
 
         await image.saveToFile(savePath)
         
-        await sharp(savePath).webp().toFile('../res/dallemini_image.webp');
+        await sharp(savePath).webp().toFile('C:/Users/micha/Documents/vsc/workspace/paimon/res/dallemini_image.webp');
         await webp_to_png(savePath)
-        let link = await upload_png('../res/image.png')
+        let link = await upload_png('C:/Users/micha/Documents/vsc/workspace/paimon/res/image.png')
         
         return link;
     }

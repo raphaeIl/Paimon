@@ -35,13 +35,12 @@ export default class NovelAI {
             model: "safe",
             resolution: "landscape",
             sampling: "k_euler_ancestral",
-            seed: 1,
         });
 
         const buffer = Buffer.from(data.imageBase64, "base64");
-        fs.writeFileSync("../res/novelai_image.png", buffer);
+        fs.writeFileSync("C:/Users/micha/Documents/vsc/workspace/paimon/res/novelai_image.png", buffer);
     
-        let image_link = await upload_png("../res/novelai_image.png");
+        let image_link = await upload_png("C:/Users/micha/Documents/vsc/workspace/paimon/res/novelai_image.png");
 
         return image_link
     }

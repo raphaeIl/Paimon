@@ -52,7 +52,6 @@ class Client {
   }
 }
 
-
 async function main() {
   let bot = new Client()
 

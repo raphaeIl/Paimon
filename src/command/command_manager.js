@@ -4,6 +4,7 @@ import DalleMiniCommand from './commands/dallemini_command.js'
 import GitHubCommand from './commands/github_command.js'
 import HelpCommand from './commands/help_command.js'
 import NovelAICommand from './commands/novelai_command.js'
+import VideoCommand from "./commands/video_command.js";
 
 export default class CommandManager {
 
@@ -26,6 +27,8 @@ export default class CommandManager {
         this.registerCommand("dalle", ['Dalle', 'd'], "Generates an image using DALL·E", "!dalle <prompt>", "Generating your image with DALL·E... (~30s)", new DalleCommand())
         this.registerCommand("dallemini", ['DalleMini', 'dm'], "Generates an image using DALL·E Mini", "!dallemini <prompt>", "Generating your image with DALL·E Mini... (~1-2min)", new DalleMiniCommand())
         this.registerCommand("novelai", ['NovelAI', 'na'], "Generates an image using NovelAI", "!novelai <prompt>", "Generating your image with NovelAI.....\n (~10s)", new NovelAICommand())
+        
+        this.registerCommand("video", ['Video', 'v'], "Uploads a Video from Youtube/BiliBili", "!video <video_link>", "Retrieving your video....\n (could take a while depending on length)", new VideoCommand())
     }
 
     registerCommand(label, aliases, description, usage, hint, commandExecutor) {

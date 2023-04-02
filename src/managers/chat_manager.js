@@ -21,7 +21,7 @@ export default class ChatManager {
         if (message.self()) // message sent by self will be ignored
             return;
         
-        if (message.talker().id == 'weixin')
+        if (message.talker().id == 'weixin') // ignored messages by WeChat Team
             return;
 
         if (this.isCommand(message)) { // handle command

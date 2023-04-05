@@ -5,6 +5,14 @@ import pkg from 'imgur';
 import Config from '../managers/config.js';
 const { ImgurClient } = pkg;
 
+import Tesseract from 'tesseract.js';
+
+export async function recognize_text(image_path) {
+  const result = await Tesseract.recognize(image_path, 'eng')
+
+  return result.data.text;
+}
+
 export async function base64_to_webp(base64_image) {
     try {
     const imagePath = await base64toFile(base64_image, { filePath: './', fileName: "image", types: ['webp'], fileMaxSize: 3145728 });

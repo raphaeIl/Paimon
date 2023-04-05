@@ -5,6 +5,7 @@ import GitHubCommand from './commands/github_command.js'
 import HelpCommand from './commands/help_command.js'
 import NovelAICommand from './commands/novelai_command.js'
 import VideoCommand from "./commands/video_command.js";
+import ChangeAudioLanguage from "./commands/change_audio_language_command.js";
 
 export default class CommandManager {
 
@@ -29,6 +30,7 @@ export default class CommandManager {
         this.registerCommand("novelai", ['NovelAI', 'na'], "Generates an image using NovelAI", "!novelai <prompt>", "Generating your image with NovelAI.....\n (~10s)", new NovelAICommand())
         
         this.registerCommand("video", ['Video', 'v'], "Uploads a Video from Youtube/BiliBili", "!video <video_link>", "Retrieving your video....\n (could take a while depending on length)", new VideoCommand())
+        this.registerCommand("changeaudiolanguage", ['ChangeAudioLanguage', 'cal', 'ChangeLanguage', 'changelanguage', 'cl'], "Sets the audio message recongnize language to the specified one.", "!cl <language: chinese/english>", "", new ChangeAudioLanguage())
     }
 
     registerCommand(label, aliases, description, usage, hint, commandExecutor) {

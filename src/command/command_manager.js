@@ -6,6 +6,8 @@ import HelpCommand from './commands/help_command.js'
 import NovelAICommand from './commands/novelai_command.js'
 import VideoCommand from "./commands/video_command.js";
 import ChangeAudioLanguage from "./commands/change_audio_language_command.js";
+import TransformCommand from "./commands/transform_command.js";
+import ClearCommand from "./commands/clear_command.js";
 
 export default class CommandManager {
 
@@ -31,6 +33,9 @@ export default class CommandManager {
         
         this.registerCommand("video", ['Video', 'v'], "Uploads a Video from Youtube/BiliBili", "!video <video_link>", "Retrieving your video....\n (could take a while depending on length)", new VideoCommand())
         this.registerCommand("changeaudiolanguage", ['ChangeAudioLanguage', 'cal', 'ChangeLanguage', 'changelanguage', 'cl'], "Sets the audio message recongnize language to the specified one.", "!cl <language: chinese/english>", "", new ChangeAudioLanguage())
+        this.registerCommand("transform", ['t'], "Transforms this bot into any character!", "!transform <character_name> <from> <is_third_person> <third_person_pronoun> <user_pronoun>", "", new TransformCommand())
+    
+        this.registerCommand("clear", ['Clear', 'c'], "Clears the past conversation for the bot.", "!clear", "", new ClearCommand())
     }
 
     registerCommand(label, aliases, description, usage, hint, commandExecutor) {

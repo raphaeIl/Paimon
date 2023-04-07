@@ -13,24 +13,19 @@ export default class ChatGPT {
     }
 
     ai = null;
-    last_id = null;
 
     constructor(openai_api_key = null) {
-
         this.ai = new ChatGPTAPI({
             apiKey: openai_api_key == null ? Config.getInstance().data['OPENAI_API_KEY'] : openai_api_key,
         });
     }
 
-    async generateResponse(prompt) {
+    async generateResponse(prompt, last_message_id = null) {
         const result = await this.ai.sendMessage(prompt, {
-            parentMessageId: this.last_id
+            parentMessageId: last_message_id
         })
         
-        this.last_id = result.id
-        console.log(this.last_id)
-        
-        return result.text
+        return result
     }
 
 }

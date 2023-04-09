@@ -98,7 +98,7 @@ export default class ChatManager {
         let response = await ChatGPT.getInstance().generateResponse(msg, this.conversation_ids[from_id])
         this.conversation_ids[from_id] = response.id
 
-        console.log(this.conversation_ids)
+        // console.log(this.conversation_ids)
 
         return await message.say(response.text);
     }

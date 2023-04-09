@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/speech": "^5.4.0",
-    "axios": "^1.2.2",
+    "adm-zip": "^0.5.10",
+    "axios": "^1.3.5",
     "base64-img": "^1.0.4",
     "bilibili-api": "^0.0.2",
     "bilibili-save-nodejs": "^1.0.0",
@@ -34,15 +35,18 @@
     "opn": "^6.0.0",
     "png-to-jpeg": "^1.0.1",
     "qrcode-terminal": "^0.12.0",
+    "random": "^4.1.0",
     "robotjs": "^0.6.0",
     "sharp": "^0.32.0",
     "tesseract.js": "^4.0.3",
+    "unzipper": "^0.10.11",
     "url-unshorten": "^1.0.6",
     "webp-converter": "^2.3.3",
     "wechaty": "^1.20.2",
     "wechaty-puppet-padlocal": "^1.20.1",
     "wechaty-puppet-wechat": "^1.18.4",
     "wx-voice": "^0.2.1",
-    "ytdl-core": "^4.11.3"
+    "ytdl-core": "^4.11.3",
+    "zip-a-folder": "^1.1.5"
   }
 }

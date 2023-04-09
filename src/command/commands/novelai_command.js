@@ -9,6 +9,9 @@ export default class NovelAICommand extends CommandExecutor {
         console.log("NovelAICommand")
 
         let image_link = await NovelAI.getInstance().generateImage(args)
+
+        console.log(image_link)
+
         const fileBox = FileBox.fromUrl(image_link)
 
 
